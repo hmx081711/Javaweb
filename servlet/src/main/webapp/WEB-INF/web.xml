@@ -5,6 +5,11 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
+
+    <context-param>
+        <param-name>initParam</param-name>
+        <param-value>imooc</param-value>
+    </context-param>
     
     <servlet>
         <servlet-name>hello servlet</servlet-name>
@@ -28,6 +33,31 @@
 
     <!--设置Session的过期时间-->
     <session-config>
-        <session-timeout>30</session-timeout>
+        <session-timeout>1</session-timeout>
     </session-config>
+
+
+    <!--Filter注册配置-->
+    <filter>
+        <filter-name>firstFilter</filter-name>
+        <filter-class>com.dorothy.filter.FirstFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>firstFilter</filter-name>
+        <!--设置要拦截的servlet名字，可以设置多个-->
+        <servlet-name>hello servlet</servlet-name>
+        <!--设置Filter要拦截的资源被Servlet调用的方式，默认是REQUEST-->
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <!--Listener注册配置-->
+    <listener>
+        <listener-class>com.dorothy.listener.FirstListener</listener-class>
+    </listener>
+
+    <!--sessionListener注册-->
+    <listener>
+        <listener-class>com.dorothy.listener.MyHttpSessionlistener</listener-class>
+    </listener>
 </web-app>
